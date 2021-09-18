@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+
+<body style= 'background-color: lightblue' >  
+    <h2 style = 'color: red'> Library Management System </h2><hr>
+    <h4 style = 'color: red'> Book Registration </h4><hr>
+
+        <form action="/homepage/" method="post">
+        {% csrf_token %}
+        {% if edit_book %}
+            Book ID: <input type="number" name="id" value="{{edit_book.id}}" readonly><br><br>
+        {% endif %}
+        Book Name: <input type="text" name="nm" value="{{edit_book.name}}" placeholder= "Book Name"><br><br>
+        Book Qty: <input type="number" name="qty" value="{{edit_book.qty}}" placeholder= "Book quantity"><br><br>
+        Book Price: <input type="number" name="price" value="{{edit_book.price}}" placeholder= "Book Price"><br><br>
+        
+        {% if edit_book.is_published %}
+            Is Published: Yes <input type="radio" name="ispub" value="Yes" checked> No <input type="radio" name="ispub" value="No"><br><br>
+        {% else %}
+            Is Published: Yes <input type="radio" name="ispub" value="Yes"> No <input type="radio" name="ispub" value="No" checked><br><br>
+        {% endif %}
+
+        {% if edit_book %}
+        <input type="submit" value="Update Book">
+        {% else %}
+        {% comment %} <input type="submit" value="Add Book"> {% endcomment %}
+        <button type="submit" class="btn btn-success">Add Book</button>
+        {% endif %}
+
+    </form>
+
+{% comment %} <a href="{% url 'show-book' %}">Show Books</a> {% endcomment %}
+<a href= "{% url 'show-book' %}" class="btn btn-primary btn- lg " tabindex="-1" role="button" aria-disabled="true"> Show Books</a>
+    </body>
+    
+</html>

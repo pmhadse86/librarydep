@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Show Books</title>
+</head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+<body style= 'background-color: lightblue' >
+    <h2 style = 'color: red'> Book Inventory </h2><hr>
+
+    
+        {% comment %} {% for book in all_books%}
+        {{book.name}}---- {{book.qty}}<br>
+        {% endfor %}
+         {% endcomment %}
+
+<ul class="nav justify-content-center">
+<table class="table table-striped table-hover"  border = "1"  width = "100%">
+    <table class="table table-bordered">
+    <table class="table align-middle">
+
+{% comment %} <table border = "1"  width = "100%"> {% endcomment %}
+
+        {% comment %} <table border="2" style="width:50%" > {% endcomment %}
+                <tr>
+                <th>BookID</th>
+                <th>BookName</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>IsPublished</th>
+                <th>Published-Date</th>
+                <th>Actions</th>
+                </tr>
+
+            {% for book in all_books %}
+
+                <tr>
+                <td>{{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.qty}}</td>
+                <td>{{book.price}}</td>
+                {% if book.is_published %}
+                        <td> Yes </td>
+                {% else %}
+                        <td> No </td>
+                {% endif %}
+
+                {% if book.published_date %}
+                    <td>{{book.published_date}}</td>
+                {% else %}
+                    <td> To be Published</td>
+                {% endif %}
+                                    
+                <td>
+                {% if book_status != "InActive" %}
+                    {% comment %} <a href="{% url 'update' book.id %}">Edit</a>&nbsp||&nbsp {% endcomment %}
+                    <a href= "{% url 'update' book.id %}" class="btn btn-primary btn-be" tabindex="-1" role="button" aria-disabled="true"> Edit</a>
+                    {% comment %} <a href="{% url 'soft-delete' book.id %}">Soft-Delete</a>&nbsp||&nbsp {% endcomment %}
+                    <a href= "{% url 'soft-delete' book.id %}" class="btn btn-warning btn-be" tabindex="-1" role="button" aria-disabled="true"> Soft-Delete</a>
+
+                {% endif %}
+                    {% comment %} <a href="{% url 'delete' book.id %}">Hard-Delete  </a> {% endcomment %}
+                    <a href= "{% url 'delete' book.id %}" class="btn btn-danger btn-be" tabindex="-1" role="button" aria-disabled="true"> Hard-Delete</a>
+
+                {% if book_status == "InActive" %}
+                    {% comment %} <a href="{% url 'restore' book.id %}">Restore</a> {% endcomment %}
+                    <a href= "{% url 'restore' book.id %}" class="btn btn-info btn-be" tabindex="-1" role="button" aria-disabled="true"> Restore</a>
+
+                {% endif %}
+                    
+                </td>
+
+            </tr>
+            {% endfor %}
+                
+                </table>
+                </table>
+        </table>
+        </ul>
+
+        {% comment %} <a  href=  "{% url  'home' %}">Home Page</a> {% endcomment %}
+        <a href= "{% url  'home' %}" class="btn btn-primary btn-be" tabindex="-1" role="button" aria-disabled="true"> Home Page</a>
+
+        {% comment %} <a href = "{% url "active-books" %}"> Active-Books</a> {% endcomment %}
+        <a href= "{% url "active-books" %}" class="btn btn-success btn-be" tabindex="-1" role="button" aria-disabled="true"> Active-Books</a>
+
+        {% comment %} <a href = "{% url "inactive-books" %}"> InActive-Books</a> {% endcomment %}
+        <a href= "{% url "inactive-books" %}" class="btn btn-danger btn-be" tabindex="-1" role="button" aria-disabled="true"> InActive-Books</a>
+        
+
+    </body>
+    
+</html>
